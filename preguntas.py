@@ -17,17 +17,18 @@ def pregunta_01():
     Carga de datos.
     -------------------------------------------------------------------------------------
     """
+    import pandas as pd
     # Lea el archivo `insurance.csv` y asignelo al DataFrame `df`
-    df = ____
+    df = pd.read_csv("insurance.csv")
 
     # Asigne la columna `charges` a la variable `y`.
-    ____ = ____
+    y = df["charges"]
 
     # Asigne una copia del dataframe `df` a la variable `X`.
-    ____ = ____.____(____)
+    X = df.copy()
 
     # Remueva la columna `charges` del DataFrame `X`.
-    ____.____(____)
+    X.drop("charges", inplace=True, axis=1)
 
     # Retorne `X` y `y`
     return X, y
