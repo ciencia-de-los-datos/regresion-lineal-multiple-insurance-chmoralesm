@@ -110,24 +110,24 @@ def pregunta_03():
     )
 
     # Cargua de las variables.
-    X_train, _, y_train, _ = pregunta_02()
+    X_train, X_test, y_train, y_test = pregunta_02()
 
     # Defina un diccionario de parámetros para el GridSearchCV. Se deben
     # considerar valores desde 1 hasta 11 regresores para el modelo
     param_grid = {
-        ____: ____(____, ____),
+        'selectKBest__k': [*range(1,12,1)],
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
     # parámetros. Use cv = 5, y como métrica de evaluación el valor negativo del
     # error cuadrático medio.
-    gridSearchCV = ____(
-        estimator=____,
-        param_grid=____,
-        cv=____,
-        scoring=____,
-        refit=____,
-        return_train_score=____,
+    gridSearchCV = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        cv=5,
+        scoring='neg_mean_squared_error',
+        refit=True,
+        return_train_score=True,
     )
 
     # Búsque la mejor combinación de regresores
