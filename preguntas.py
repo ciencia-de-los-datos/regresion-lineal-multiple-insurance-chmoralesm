@@ -73,33 +73,38 @@ def pregunta_03():
     # Importe GridSearchCV
     # Importe Pipeline
     # Importe OneHotEncoder
-    from ____ import ____
+    from sklearn.compose import make_column_selector, make_column_transformer
+    from sklearn.feature_selection import SelectKBest, f_regression
+    from sklearn.linear_model import LinearRegression
+    from sklearn.model_selection import GridSearchCV
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import OneHotEncoder
 
-    pipeline = ____(
+    pipeline = Pipeline(
         steps=[
             # Paso 1: Construya un column_transformer que aplica OneHotEncoder a las
             # variables categóricas, y no aplica ninguna transformación al resto de
             # las variables.
             (
                 "column_transfomer",
-                ____(
+                make_column_transformer(
                     (
-                        ____(),
-                        ____(____=____),
+                        OneHotEncoder(),
+                        make_column_selector(dtype_include=object),
                     ),
-                    remainder=____,
+                    remainder='passthrough',
                 ),
             ),
             # Paso 2: Construya un selector de características que seleccione las K
             # características más importantes. Utilice la función f_regression.
             (
                 "selectKBest",
-                ____(____=____),
+                SelectKBest(score_func = f_regression),
             ),
             # Paso 3: Construya un modelo de regresión lineal.
             (
-                "____",
-                ____(____),
+                "linearRegression",
+                LinearRegression(),
             ),
         ],
     )
